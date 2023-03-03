@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liumou.mapper.ArticleMapper">
+
+
+    <select id="getArticleListF" resultType="com.liumou.domain.vo.ArticleDetailVo">
+        SELECT
+            a.id,a.title,a.content,a.category_id,a.view_count,a.is_comment,a.create_time,c.name category_name
+        FROM
+            sg_article a
+                JOIN
+            sg_category c
+            ON
+                a.category_id = c.id
+    </select>
+</mapper>
