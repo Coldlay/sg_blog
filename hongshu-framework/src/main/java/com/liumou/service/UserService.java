@@ -9,4 +9,6 @@ import com.liumou.domain.entity.User;
  */
 public interface UserService {
     ResponseResult login(User user);
+
+    ResponseResult logout();
 }

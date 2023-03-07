@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -54,5 +55,24 @@ public class UserServiceImpl implements UserService {
         UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
         BlogUserLoginVo blogUserLoginVo = new BlogUserLoginVo(jwt, userInfoVo);
         return ResponseResult.okResult(blogUserLoginVo);
+    }
+
+    @Override
+    public ResponseResult logout() {
+
+        //从SecurityContextHolder中获取Authentication对象
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //从Authentication对象中获取LoginUser对象
+        LoginUser loginUser = (LoginUser)authentication.getPrincipal();
+
+        //通过LoginUser对象获取用户id
+        Long id = loginUser.getUser().getId();
+
+        //在redis中删除用户的记录
+        redisCache.deleteObject("bloglogin:" + id);
+
+
+
+        return ResponseResult.okResult();
     }
 }
