@@ -8,10 +8,7 @@ import com.liumou.service.ArticleService;
 import com.liumou.service.CategoryService;
 import com.liumou.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,6 +47,7 @@ public class ArticleController {
         return articleService.articleDetail(id);
     }
 
+//
     @Autowired()
     ArticleMapper articleMapper;
 
@@ -60,17 +58,11 @@ public class ArticleController {
         return ResponseResult.okResult(articleListF);
     }
 
-//    @Autowired
-//    RedisCache redisCache;
-//
-//    @GetMapping("/testredis")
-//    public ResponseResult testRedis(){
-//        List<Object> k100 = redisCache.getCacheList("k100");
-//
-//        String k100 = redisCache.getCacheObject("k100");
-//        System.out.println(k100);
-//        return null;
-//    }
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult updateViewCount(@PathVariable("id") Long id){
+
+        return articleService.updateViewCount(id);
+    }
 
 
 

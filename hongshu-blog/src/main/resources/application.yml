@@ -11,7 +11,7 @@ spring:
       max-file-size: 2MB
       max-request-size: 5MB
   redis:
-    host: 192.168.56.136
+    host: 192.168.56.140
     port: 6379
 mybatis-plus:
   configuration:
@@ -24,3 +24,7 @@ mybatis-plus:
       logic-not-delete-value: 0
       id-type: auto
   mapper-locations: classpath*:/mapper/**/*.xml
+oss:
+  accessKey: 59T0Dqh16eepuAFztKyixGJY8nDpe0V3M7a5sHK1
+  secretKey: KZkNR3iZVrWzfty9jqMtT9B8Omigtanmt4MezXoG
+  bucket: 2023030812345

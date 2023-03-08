@@ -17,6 +17,7 @@ import com.liumou.service.ArticleService;
 
 import com.liumou.service.CategoryService;
 import com.liumou.utils.BeanCopyUtils;
+import com.liumou.utils.RedisCache;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,5 +98,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleDetailVo.setCategoryName(category.getName());
 
         return ResponseResult.okResult(articleDetailVo);
+    }
+
+    @Autowired
+    RedisCache redisCache;
+
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+
+        redisCache.incrementCacheMapValue("article:viewCount",id.toString(),1);
+        return null;
     }
 }
